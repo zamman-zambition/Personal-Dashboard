@@ -16,9 +16,9 @@ const Dashboard = () => {
   return (
     <div>
       {/* Header */}
-      <header className="bg-white text-black flex flex-row flex-wrap items-center justify-between p-4 md:p-6">
+      <header className="bg-white text-black lg:border-b-2 flex flex-row flex-wrap items-center justify-between md:p-6">
         <h1 className="text-xl mr-2 font-bold">Personal Dashboard</h1>
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center ">
           {/* Weather button */}
           <button
             className={`mr-4 focus:outline-none text-lg md:text-xl ${
@@ -44,7 +44,7 @@ const Dashboard = () => {
         </div>
       </header>
       {/* Main Content */}
-      <div className="flex-grow p-4">
+      <div className="flex-grow p-4 my-auto lg:mt-8">
         {/* Displaying WeatherDisplay or TodoTask based on selected menu */}
         {selectedMenu === "weather" ? <WeatherDisplay /> : <TodoTask />}
       </div>
