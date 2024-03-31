@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-// import { AiOutlineDelete } from 'react-icons/ai';
 import { FaTrashAlt } from "react-icons/fa";
 
+/**
+ * TodoList component for managing a list of tasks.
+ * Allows users to add, delete, and mark tasks as complete.
+ */
 const TodoList = () => {
+  // State variables for task input, task list, and filter
   const [task, setTask] = useState("");
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("All");
 
+  // Function to add a new task
   const addTask = () => {
     if (!task.trim()) return;
     const newTask = { id: Date.now(), task: task, completed: false };
@@ -14,12 +19,14 @@ const TodoList = () => {
     setTask("");
   };
 
+  // Function to handle key press events
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       addTask();
     }
   };
 
+  // Function to toggle task completion status
   const toggleComplete = (id) => {
     setTodos(
       todos.map((todo) =>
@@ -28,19 +35,23 @@ const TodoList = () => {
     );
   };
 
+  // Function to delete a task
   const deleteTask = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  // Function to filter tasks based on completion status
   const filteredTodos = todos.filter((todo) => {
     if (filter === "Active") return !todo.completed;
     if (filter === "Completed") return todo.completed;
     return true;
   });
 
+  // Render component
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Todo List</h2>
+      {/* Task input and add button */}
       <div className="flex flex-wrap mb-4 gap-2">
         <input
           type="text"
@@ -54,6 +65,7 @@ const TodoList = () => {
           Add Task
         </button>
       </div>
+      {/* Filter buttons */}
       <div className="mb-4 flex gap-2">
         <button
           className={`border p-2 ${
@@ -86,6 +98,7 @@ const TodoList = () => {
           Completed
         </button>
       </div>
+      {/* Task list */}
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto">
           <thead className="border-b-2">
@@ -101,6 +114,7 @@ const TodoList = () => {
                   {todo.task}
                 </td>
                 <td className="p-4 text-right flex items-center justify-end">
+                  {/* Checkbox for task completion */}
                   <label className="inline-flex relative items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -108,13 +122,14 @@ const TodoList = () => {
                       checked={todo.completed}
                       onChange={() => toggleComplete(todo.id)}
                     />
+                    {/* Custom checkbox style */}
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                   </label>
+                  {/* Delete task button */}
                   <FaTrashAlt
                     className="inline cursor-pointer ml-2"
                     onClick={() => deleteTask(todo.id)}
                   />
-                  {/* <FaTrashAlt onClick={() => deleteTask(index)} className="text-red-500 hover:text-red-700 ml-2 cursor-pointer" /> */}
                 </td>
               </tr>
             ))}
